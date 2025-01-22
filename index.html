@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FilmFinder PWA</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>🎥 FilmFinder</h1>
+        <p>Discover your next favorite movie effortlessly.</p>
+    </header>
+
+    <main>
+        <section id="filters">
+            <h2>Filters</h2>
+            <div class="filter-group">
+                <label for="rating">Rating (IMDb):</label>
+                <input type="range" id="rating" min="1" max="10" step="0.1" value="5">
+                <span id="rating-value">5</span>
+            </div>
+
+            <div class="filter-group">
+                <label for="year">Year:</label>
+                <input type="range" id="year" min="1900" max="2023" step="1" value="2000">
+                <span id="year-value">2000</span>
+            </div>
+
+            <div class="filter-group">
+                <label for="runtime">Runtime (minutes):</label>
+                <input type="range" id="runtime" min="30" max="300" step="5" value="120">
+                <span id="runtime-value">120</span>
+            </div>
+
+            <div class="filter-group">
+                <label for="genres">Genres:</label>
+                <select id="genres" multiple>
+                    <option value="28">Action</option>
+                    <option value="12">Adventure</option>
+                    <option value="16">Animation</option>
+                    <option value="35">Comedy</option>
+                    <option value="80">Crime</option>
+                    <option value="99">Documentary</option>
+                    <option value="18">Drama</option>
+                    <option value="10751">Family</option>
+                    <option value="14">Fantasy</option>
+                    <option value="36">History</option>
+                    <option value="27">Horror</option>
+                    <option value="10402">Music</option>
+                    <option value="9648">Mystery</option>
+                    <option value="10749">Romance</option>
+                    <option value="878">Science Fiction</option>
+                    <option value="10770">TV Movie</option>
+                    <option value="53">Thriller</option>
+                    <option value="10752">War</option>
+                    <option value="37">Western</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="language">Language:</label>
+                <input type="text" id="language" placeholder="e.g., en (English)">
+            </div>
+        </section>
+
+        <section id="results">
+            <h2>Results</h2>
+            <div id="movie-list" class="movie-grid"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 FilmFinder. Designed with ❤️ for movie enthusiasts.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
