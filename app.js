@@ -122,21 +122,6 @@ function updateYearRange() {
     fetchMovies(); // Ergebnisse neu laden
 }
 
-function changeYear(target, delta) {
-    if (target === "minYear") {
-        minYear = Math.max(1900, minYear + delta); // Ensure it doesn't go below 1900
-        document.getElementById("minYear-value").textContent = minYear;
-    } else if (target === "maxYear") {
-        maxYear = Math.min(2025, maxYear + delta); // Ensure it doesn't go above 2025
-        document.getElementById("maxYear-value").textContent = maxYear;
-    }
-    if (minYear > maxYear) {
-        minYear = maxYear; // Prevent minYear from being greater than maxYear
-        document.getElementById("minYear-value").textContent = minYear;
-    }
-    fetchMovies(); // Fetch movies again
-}
-
 function updateGenres() {
     const genreButtons = document.querySelectorAll(".genre-btn");
     genreButtons.forEach(button => {
