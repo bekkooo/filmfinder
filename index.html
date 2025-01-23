@@ -3,89 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FilmFinder PWA</title>
+    <title>FilmFinder</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <h1>FilmFinder</h1>
-        <p>Your ultimate movie discovery tool.</p>
+        <p>Your ultimate movie and TV discovery tool.</p>
     </header>
-
     <main>
-        <section id="filters">
-            <h2>Filters</h2>
+        <div class="container">
+            <!-- Filters -->
+            <aside id="filters">
+                <h2>Filters</h2>
 
-            <div class="filter-group">
-                <label for="rating">Rating (IMDb):</label>
-                <input type="range" id="rating" min="1" max="10" step="0.1" value="5.5">
-                <span id="rating-value">5.5</span>
-            </div>
-
-            <div class="filter-group collapsible">
-                <label class="collapsible-label" onclick="toggleVotes()">
-                    Minimum Votes
-                    <span id="votes-arrow" class="arrow">&#9660;</span>
-                </label>                
-                <div id="votes-content">
-                    <input type="range" id="votes" min="0" max="30000" step="1000" value="10000">
-                    <span id="votes-value">100000</span>
+                <div class="filter-group">
+                    <label>Type:</label>
+                    <div class="type-toggle">
+                        <button id="movies-btn" class="active" onclick="setType('movie')">Movies</button>
+                        <button id="tv-btn" onclick="setType('tv')">TV Shows</button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="filter-group">
-                <label>Release Year Range:</label>
-                <div class="year-range">
-                    <input type="number" id="minYear" min="1900" max="2023" value="2000" placeholder="From">
-                    <input type="number" id="maxYear" min="1900" max="2023" value="2023" placeholder="To">
+                <div class="filter-group">
+                    <label>Rating (IMDb):</label>
+                    <div class="arrow-filter">
+                        <button onclick="changeRating(-0.1)">&#9664;</button>
+                        <span id="rating-value">8.0</span>
+                        <button onclick="changeRating(0.1)">&#9654;</button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="filter-group">
-                <label>Genres:</label>
-                <div id="genre-wheel">
-                    <button class="genre-button" data-genre="28">Action</button>
-                    <button class="genre-button" data-genre="12">Adventure</button>
-                    <button class="genre-button" data-genre="16">Animation</button>
-                    <button class="genre-button" data-genre="35">Comedy</button>
-                    <button class="genre-button" data-genre="80">Crime</button>
-                    <button class="genre-button" data-genre="18">Drama</button>
-                    <button class="genre-button" data-genre="27">Horror</button>
-                    <button class="genre-button" data-genre="878">Sci-Fi</button>
-                    <button class="genre-button" data-genre="10752">War</button>
+                <div class="filter-group">
+                    <label>Minimum Votes:</label>
+                    <input type="range" id="votes" min="0" max="1000000" step="1000" value="10000" oninput="updateVotes()">
+                    <span id="votes-value">10000</span>
                 </div>
-            </div>
 
-            <div class="filter-group">
-                <label>Type:</label>
-                <div id="type-wheel">
-                    <button class="type-button selected" data-type="movie">Film</button>
-                    <button class="type-button" data-type="tv">Serie</button>
-                    <button class="type-button" data-type="documentary">Doku</button>
+                <div class="filter-group">
+                    <label>Release Year Range:</label>
+                    <div class="arrow-filter">
+                        <button onclick="changeYear('minYear', -1)">&#9664;</button>
+                        <span id="minYear-value">2000</span>
+                        <button onclick="changeYear('minYear', 1)">&#9654;</button>
+                        <span>-</span>
+                        <button onclick="changeYear('maxYear', -1)">&#9664;</button>
+                        <span id="maxYear-value">2023</span>
+                        <button onclick="changeYear('maxYear', 1)">&#9654;</button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="filter-group">
-                <label for="sort">Sort By:</label>
-                <select id="sort">
-                    <option value="popularity.desc">Popularity (Descending)</option>
-                    <option value="vote_average.desc">Rating (Descending)</option>
-                    <option value="release_date.desc">Newest Releases</option>
-                    <option value="vote_count.desc">Most Votes</option>
-                </select>
-            </div>
-        </section>
+                <div class="filter-group">
+                    <label>Genres:</label>
+                    <select id="genre-dropdown" multiple onchange="updateGenres()">
+                        <option value="28">Action</option>
+                        <option value="12">Adventure</option>
+                        <option value="16">Animation</option>
+                        <option value="35">Comedy</option>
+                        <option value="80">Crime</option>
+                        <option value="18">Drama</option>
+                        <option value="27">Horror</option>
+                        <option value="878">Sci-Fi</option>
+                        <option value="10752">War</option>
+                    </select>
+                </div>
 
-        <section id="results">
-            <h2>Results</h2>
-            <div id="movie-list" class="movie-grid"></div>
-        </section>
+                <div class="filter-group">
+                    <label for="sort">Sort By:</label>
+                    <select id="sort" onchange="fetchMovies()">
+                        <option value="popularity.desc">Popularity (Descending)</option>
+                        <option value="popularity.asc">Popularity (Ascending)</option>
+                        <option value="release_date.desc">Newest Releases</option>
+                        <option value="release_date.asc">Oldest Releases</option>
+                        <option value="vote_average.desc">Highest Rating</option>
+                        <option value="vote_average.asc">Lowest Rating</option>
+                        <option value="vote_count.desc">Most Votes</option>
+                        <option value="vote_count.asc">Fewest Votes</option>
+                    </select>
+                </div>
+            </aside>
+
+            <!-- Results -->
+            <section id="results">
+                <h2>Results</h2>
+                <div id="movie-list" class="film-results-grid"></div>
+            </section>
+        </div>
     </main>
-
     <footer>
-        <p>&copy; 2025 FilmFinder. Designed with ❤️ for movie enthusiasts.</p>
+        <p>&copy; 2025 FilmFinder. Designed with ❤️ for movie and TV enthusiasts.</p>
     </footer>
-
+    <div id="trailer-modal" class="trailer-container">
+        <button class="close-btn" onclick="stopTrailer()">X</button>
+        <iframe id="trailer-frame" src="" allow="autoplay"></iframe>
+    </div>
     <script src="app.js"></script>
 </body>
 </html>
