@@ -8,59 +8,71 @@
 </head>
 <body>
     <header>
-        <h1>🎥 FilmFinder</h1>
-        <p>Discover your next favorite movie effortlessly.</p>
+        <h1>FilmFinder</h1>
+        <p>Your ultimate movie discovery tool.</p>
     </header>
 
     <main>
         <section id="filters">
             <h2>Filters</h2>
+
             <div class="filter-group">
                 <label for="rating">Rating (IMDb):</label>
-                <input type="range" id="rating" min="1" max="10" step="0.1" value="5">
-                <span id="rating-value">5</span>
+                <input type="range" id="rating" min="1" max="10" step="0.1" value="5.5">
+                <span id="rating-value">5.5</span>
+            </div>
+
+            <div class="filter-group collapsible">
+                <label class="collapsible-label" onclick="toggleVotes()">
+                    Minimum Votes
+                    <span id="votes-arrow" class="arrow">&#9660;</span>
+                </label>                
+                <div id="votes-content">
+                    <input type="range" id="votes" min="0" max="30000" step="1000" value="10000">
+                    <span id="votes-value">100000</span>
+                </div>
             </div>
 
             <div class="filter-group">
-                <label for="year">Year:</label>
-                <input type="range" id="year" min="1900" max="2023" step="1" value="2000">
-                <span id="year-value">2000</span>
+                <label>Release Year Range:</label>
+                <div class="year-range">
+                    <input type="number" id="minYear" min="1900" max="2023" value="2000" placeholder="From">
+                    <input type="number" id="maxYear" min="1900" max="2023" value="2023" placeholder="To">
+                </div>
             </div>
 
             <div class="filter-group">
-                <label for="runtime">Runtime (minutes):</label>
-                <input type="range" id="runtime" min="30" max="300" step="5" value="120">
-                <span id="runtime-value">120</span>
+                <label>Genres:</label>
+                <div id="genre-wheel">
+                    <button class="genre-button" data-genre="28">Action</button>
+                    <button class="genre-button" data-genre="12">Adventure</button>
+                    <button class="genre-button" data-genre="16">Animation</button>
+                    <button class="genre-button" data-genre="35">Comedy</button>
+                    <button class="genre-button" data-genre="80">Crime</button>
+                    <button class="genre-button" data-genre="18">Drama</button>
+                    <button class="genre-button" data-genre="27">Horror</button>
+                    <button class="genre-button" data-genre="878">Sci-Fi</button>
+                    <button class="genre-button" data-genre="10752">War</button>
+                </div>
             </div>
 
             <div class="filter-group">
-                <label for="genres">Genres:</label>
-                <select id="genres" multiple>
-                    <option value="28">Action</option>
-                    <option value="12">Adventure</option>
-                    <option value="16">Animation</option>
-                    <option value="35">Comedy</option>
-                    <option value="80">Crime</option>
-                    <option value="99">Documentary</option>
-                    <option value="18">Drama</option>
-                    <option value="10751">Family</option>
-                    <option value="14">Fantasy</option>
-                    <option value="36">History</option>
-                    <option value="27">Horror</option>
-                    <option value="10402">Music</option>
-                    <option value="9648">Mystery</option>
-                    <option value="10749">Romance</option>
-                    <option value="878">Science Fiction</option>
-                    <option value="10770">TV Movie</option>
-                    <option value="53">Thriller</option>
-                    <option value="10752">War</option>
-                    <option value="37">Western</option>
+                <label>Type:</label>
+                <div id="type-wheel">
+                    <button class="type-button selected" data-type="movie">Film</button>
+                    <button class="type-button" data-type="tv">Serie</button>
+                    <button class="type-button" data-type="documentary">Doku</button>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label for="sort">Sort By:</label>
+                <select id="sort">
+                    <option value="popularity.desc">Popularity (Descending)</option>
+                    <option value="vote_average.desc">Rating (Descending)</option>
+                    <option value="release_date.desc">Newest Releases</option>
+                    <option value="vote_count.desc">Most Votes</option>
                 </select>
-            </div>
-
-            <div class="filter-group">
-                <label for="language">Language:</label>
-                <input type="text" id="language" placeholder="e.g., en (English)">
             </div>
         </section>
 
