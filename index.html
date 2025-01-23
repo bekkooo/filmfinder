@@ -36,36 +36,36 @@
 
                 <div class="filter-group">
                     <label>Minimum Votes:</label>
-                    <input type="range" id="votes" min="0" max="1000000" step="1000" value="10000" oninput="updateVotes()">
-                    <span id="votes-value">10000</span>
+                    <input type="range" id="votes" min="0" max="35000" step="1000" value="0" oninput="updateVotes()">
+                    <span id="votes-value">0</span>
                 </div>
 
                 <div class="filter-group">
                     <label>Release Year Range:</label>
-                    <div class="arrow-filter">
-                        <button onclick="changeYear('minYear', -1)">&#9664;</button>
-                        <span id="minYear-value">2000</span>
-                        <button onclick="changeYear('minYear', 1)">&#9654;</button>
+                    <div class="year-picker">
+                        <select id="minYearPicker" onchange="updateYearRange()">
+                            <!-- Dynamically filled with JavaScript -->
+                        </select>
                         <span>-</span>
-                        <button onclick="changeYear('maxYear', -1)">&#9664;</button>
-                        <span id="maxYear-value">2023</span>
-                        <button onclick="changeYear('maxYear', 1)">&#9654;</button>
+                        <select id="maxYearPicker" onchange="updateYearRange()">
+                            <!-- Dynamically filled with JavaScript -->
+                        </select>
                     </div>
                 </div>
 
                 <div class="filter-group">
                     <label>Genres:</label>
-                    <select id="genre-dropdown" multiple onchange="updateGenres()">
-                        <option value="28">Action</option>
-                        <option value="12">Adventure</option>
-                        <option value="16">Animation</option>
-                        <option value="35">Comedy</option>
-                        <option value="80">Crime</option>
-                        <option value="18">Drama</option>
-                        <option value="27">Horror</option>
-                        <option value="878">Sci-Fi</option>
-                        <option value="10752">War</option>
-                    </select>
+                    <div id="genre-buttons" class="genre-buttons">
+                        <button class="genre-btn" data-genre="28">Action</button>
+                        <button class="genre-btn" data-genre="12">Adventure</button>
+                        <button class="genre-btn" data-genre="16">Animation</button>
+                        <button class="genre-btn" data-genre="35">Comedy</button>
+                        <button class="genre-btn" data-genre="80">Crime</button>
+                        <button class="genre-btn" data-genre="18">Drama</button>
+                        <button class="genre-btn" data-genre="27">Horror</button>
+                        <button class="genre-btn" data-genre="878">Sci-Fi</button>
+                        <button class="genre-btn" data-genre="10752">War</button>
+                    </div>
                 </div>
 
                 <div class="filter-group">

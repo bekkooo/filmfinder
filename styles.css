@@ -183,9 +183,47 @@ select#genre-dropdown {
     color: #ffffff;
     border: 1px solid #333;
     border-radius: 5px;
+    max-height: 30px; /* Ensure minimal space usage */
+    overflow: hidden;
 }
 
 .genre-container {
     display: flex;
     flex-direction: column;
+}
+
+.genre-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.genre-btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.genre-btn.selected {
+    background-color: #555;
+}
+
+.year-picker {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.year-picker select {
+    appearance: none; /* Remove default styling */
+    background: #333;
+    color: #fff;
+    padding: 5px;
+    margin: 0 5px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    font-size: 1rem;
 }

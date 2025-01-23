@@ -2,9 +2,9 @@ const apiKey = "99e0e9856667065508a808a4376007a9"; // Setze hier deinen API-Schl
 if (!apiKey) alert("API key is not set. Please set your TMDB API key.");
 
 let type = "movie";
-let rating = 8.0;
-let minYear = 2000;
-let maxYear = 2023;
+let rating = 6.5; // Set default rating to 6.5
+let minYear = 1900; // Set default minYear to 1900
+let maxYear = 2025; // Set default maxYear to 2025
 let sortBy = "popularity.desc";
 let selectedGenres = [];
 
@@ -95,22 +95,66 @@ function updateVotes() {
     fetchMovies();
 }
 
+function initializeYearPickers() {
+    const minYearPicker = document.getElementById("minYearPicker");
+    const maxYearPicker = document.getElementById("maxYearPicker");
+
+    for (let year = 1900; year <= 2025; year++) {
+        const optionMin = document.createElement("option");
+        const optionMax = document.createElement("option");
+
+        optionMin.value = year;
+        optionMin.textContent = year;
+        optionMax.value = year;
+        optionMax.textContent = year;
+
+        if (year === 1900) optionMin.selected = true; // Standardwert
+        if (year === 2025) optionMax.selected = true;
+
+        minYearPicker.appendChild(optionMin);
+        maxYearPicker.appendChild(optionMax);
+    }
+}
+
+function updateYearRange() {
+    minYear = parseInt(document.getElementById("minYearPicker").value, 10);
+    maxYear = parseInt(document.getElementById("maxYearPicker").value, 10);
+    fetchMovies(); // Ergebnisse neu laden
+}
+
 function changeYear(target, delta) {
     if (target === "minYear") {
-        minYear = Math.max(1900, minYear + delta);
+        minYear = Math.max(1900, minYear + delta); // Ensure it doesn't go below 1900
         document.getElementById("minYear-value").textContent = minYear;
     } else if (target === "maxYear") {
-        maxYear = Math.min(new Date().getFullYear(), maxYear + delta);
+        maxYear = Math.min(2025, maxYear + delta); // Ensure it doesn't go above 2025
         document.getElementById("maxYear-value").textContent = maxYear;
     }
-    fetchMovies();
+    if (minYear > maxYear) {
+        minYear = maxYear; // Prevent minYear from being greater than maxYear
+        document.getElementById("minYear-value").textContent = minYear;
+    }
+    fetchMovies(); // Fetch movies again
 }
 
 function updateGenres() {
-    const dropdown = document.getElementById("genre-dropdown");
-    selectedGenres = Array.from(dropdown.selectedOptions).map(option => option.value);
-    fetchMovies();
+    const genreButtons = document.querySelectorAll(".genre-btn");
+    genreButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const genreId = button.getAttribute("data-genre");
+            if (selectedGenres.includes(genreId)) {
+                selectedGenres = selectedGenres.filter(id => id !== genreId);
+                button.classList.remove("selected");
+            } else {
+                selectedGenres.push(genreId);
+                button.classList.add("selected");
+            }
+            fetchMovies();
+        });
+    });
 }
 
 // Initialer Aufruf
+initializeYearPickers();
+updateGenres();
 fetchMovies();
